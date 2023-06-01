@@ -1,0 +1,28 @@
+GET http://localhost:5000/users
+
+###
+GET http://localhost:5000/users/1
+
+###
+POST http://localhost:5000/products
+Content-Type: application/json
+
+{
+    "namaProduct": "Kipas Angin",
+    "deskripsiProduct": "Baru",
+   "hargaProduct": "120000",
+    "persediaan": "20"
+}
+
+###
+PATCH http://localhost:5000/users/1
+Content-Type: application/json
+
+{
+    "name": "M Fikri",
+    "email": "mfikri@gmail.com",
+    "gender": "Male"
+}
+
+###
+DELETE http://localhost:5000/users/2
