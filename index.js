@@ -1,10 +1,22 @@
-import express from "express";
-import cors from "cors";
-import UserRoute from "./routes/ProductsRoute.js";
-
+const express = require('express');
 const app = express();
-app.use(cors());
-app.use(express.json());
-app.use(UserRoute);
+const port = process.env.PORT || 5000; // Port server
 
-app.listen(5000, ()=> console.log('Server up and running...'));
+app.use(express.json());
+
+// Mengimpor route untuk masing-masing service
+const authRoute = require('./service/products');
+// const barangRoute = require('./service/barang-service');
+
+app.get('/', (req, res) => {
+  res.send('Hello, world!');
+});
+
+// Mengatur rute untuk masing-masing service
+app.use('/api/products', authRoute);
+// app.use('/barang', barangRoute);
+
+// Menjalankan server
+app.listen(port, () => {
+  console.log(`Server berjalan pada port ${port}`);
+});

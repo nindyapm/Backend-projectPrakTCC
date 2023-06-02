@@ -1,7 +1,16 @@
 runtime: nodejs20
 
 env_variables:
+  PORT: 5000
+  MYSQL_HOST: "172.31.112.3"
   MYSQL_USER: dataproject
   MYSQL_PASSWORD: projecttcc
   MYSQL_DATABASE: project_praktcc
   INSTANCE_CONNECTION_NAME: final-project-388509:asia-southeast1:dataproject
+
+handlers:
+- url: /.*
+  script: auto
+
+vpc_access_connector:
+  name: "projects/final-project-388509/locations/asia-southeast1/connectors/projecttcc"
