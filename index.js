@@ -1,20 +1,17 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 5000; // Port server
+const port = process.env.PORT || 8080;
 
 app.use(express.json());
 
-// Mengimpor route untuk masing-masing service
-const authRoute = require('./service/products');
-// const barangRoute = require('./service/barang-service');
+// Mengimpor route untuk service
+const authRoute = require('./services/products.cjs');
 
 app.get('/', (req, res) => {
-  res.send('Hello, world!');
+  res.send('Server Berjalan');
 });
 
-// Mengatur rute untuk masing-masing service
-app.use('/api/products', authRoute);
-// app.use('/barang', barangRoute);
+app.use('/products', authRoute);
 
 // Menjalankan server
 app.listen(port, () => {

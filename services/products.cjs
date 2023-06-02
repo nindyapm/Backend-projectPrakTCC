@@ -1,22 +1,15 @@
 const express = require('express');
-const db = require('../config/Database');
+const db = require('../config/Database.cjs');
 
 const router = express.Router();
 
-router.get('/list', (req, res) => {
+router.get('/', (req, res) => {
   const sql = 'SELECT * FROM products';
   db.query(sql, (err, result) => {
     if (err) {
       res.status(500).send({ error: 'Terjadi kesalahan server' });
     } else {
-      res.send({
-        metadata: {
-            code: 200,
-            message: "OK"
-        },
-        total: result.length,
-        data: result
-      });
+      res.send(result);
     }
   });
 });
@@ -28,35 +21,19 @@ router.get('/:id', (req, res) => {
     if (err) {
       res.status(500).send({ error: 'Terjadi kesalahan server' });
     } else {
-      res.send({
-        metadata: {
-            code: 200,
-            message: (result.length > 0) ? "OK" : "Products tidak ada"
-        },
-        data: {
-          product: (result.length > 0) ? result[0] : null
-        }
-      });
+      res.send(result);
     }
   });
 });
 
-router.post('/add', (req, res) => {
+router.post('/', (req, res) => {
     const { namaProduct, deskripsiProduct, hargaProduct, persediaan } = req.body;
     const sql = 'INSERT INTO products (namaProduct, deskripsiProduct, hargaProduct, persediaan) VALUES (?, ?, ?, ?)';
     db.query(sql, [namaProduct, deskripsiProduct, hargaProduct, persediaan], (err, result) => {
       if (err) {
         res.status(500).send({ error: 'Terjadi kesalahan server' });
       } else {
-        res.send({
-          metadata: {
-              code: 200,
-              message: "Berhasil menambah products"
-          },
-          data: {
-            bahan: req.body
-          }
-        });
+        res.send({message: "Berhasil menambah product"});
       }
     });
 });
@@ -69,15 +46,7 @@ router.put('/:id', (req, res) => {
       if (err) {
         res.status(500).send({ error: 'Terjadi kesalahan server' });
       } else {
-        res.send({
-          metadata: {
-              code: 200,
-              message: "Berhasil mengupdate products"
-          },
-          data: {
-            bahan: req.body
-          }
-        });
+        res.send({message: "Berhasil mengupdate product"});
       }
     });
 });
@@ -89,12 +58,7 @@ router.delete('/:id', (req, res) => {
       if (err) {
         res.status(500).send({ error: 'Terjadi kesalahan server' });
       } else {
-        res.send({
-          metadata: {
-              code: 200,
-              message: "Berhasil menghapus products"
-          }
-        });
+        res.send({message: "Berhasil menghapus product"});
       }
     });
 });
