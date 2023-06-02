@@ -1,0 +1,7 @@
+runtime: nodejs20
+
+env_variables:
+  MYSQL_USER: dataproject
+  MYSQL_PASSWORD: projecttcc
+  MYSQL_DATABASE: project_praktcc
+  INSTANCE_CONNECTION_NAME: final-project-388509:asia-southeast1:dataproject
